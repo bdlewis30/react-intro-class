@@ -21,6 +21,19 @@ export default class Calculator extends Component {
         })
     }
 
+    setDisplay(num){
+        var display = ( this.state.display === '0') ? num : this.state.display + num;
+        this.setState({display: (this.state.display.length < 13) ? display: this.state.display })
+    }
+
+    setOperator(operator){
+        if(!this.state.operator){
+            this.setState({operator: operator, temp: parseInt(this.state.display, 10), display: '0'})
+        }
+    }
+
+    // calculate()
+
     render() {
         return (
             <div id="calculator-container">
@@ -29,27 +42,27 @@ export default class Calculator extends Component {
                 <img className="remove-highlight" src={calculatorImg} alt="calculator" />
                 <div id="calculator-mask" className="remove-highlight">
                     <div className="output">
-                        <span className="total"></span>
+                        <span className="total">{this.state.display}</span>
                     </div>
 
                     <div className="btn clear"></div>
 
-                    <div className="btn zero"></div>
-                    <div className="btn one"></div>
-                    <div className="btn two"></div>
-                    <div className="btn three"></div>
-                    <div className="btn four"></div>
-                    <div className="btn five"></div>
-                    <div className="btn six"></div>
-                    <div className="btn seven"></div>
-                    <div className="btn eight"></div>
-                    <div className="btn nine"></div>
+                    <div className="btn zero" onClick={ () => {this.setDisplay('0')}}></div>
+                    <div className="btn one" onClick={ () => {this.setDisplay('1')}}></div>
+                    <div className="btn two" onClick={ () => {this.setDisplay('2')}}></div>
+                    <div className="btn three" onClick={ () => {this.setDisplay('3')}}></div>
+                    <div className="btn four" onClick={ () => {this.setDisplay('4')}}></div>
+                    <div className="btn five" onClick={ () => {this.setDisplay('5')}}></div>
+                    <div className="btn six" onClick={ () => {this.setDisplay('6')}}></div>
+                    <div className="btn seven" onClick={ () => {this.setDisplay('7')}}></div>
+                    <div className="btn eight" onClick={ () => {this.setDisplay('8')}}></div>
+                    <div className="btn nine" onClick={ () => {this.setDisplay('9')}}></div>
 
-                    <div className="btn equal"></div>
-                    <div className="btn multiply"></div>
-                    <div className="btn divide"></div>
-                    <div className="btn subtract"></div>
-                    <div className="btn add"></div>
+                    <div className="btn equal" onClick={ () => {this.calculate()}}></div>
+                    <div className="btn multiply" onClick={ () => {this.setOperator('*')}}></div>
+                    <div className="btn divide" onClick={ () => {this.setOperator('/')}}></div>
+                    <div className="btn subtract" onClick={ () => {this.setOperator('-')}}></div>
+                    <div className="btn add" onClick={ () => {this.setOperator('+')}}></div>
                 </div>
             </div>
         )
